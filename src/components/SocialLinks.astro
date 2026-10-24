@@ -1,0 +1,25 @@
+---
+import type { Lang } from '../i18n/ui';
+import { profile, type Localized } from '../data/profile';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const label = (value: string | Localized) => (typeof value === 'string' ? value : value[lang]);
+---
+<ul class="links">
+  {
+    profile.links.map((link) => (
+      <li>
+        <a href={link.url} rel="me noopener" target="_blank">
+          {label(link.label)}
+          <svg aria-hidden="true" viewBox="0 0 16 16">
+            <path d="M6 3h7v7h-1.5V5.56L5.03 12.03 3.97 10.97 10.44 4.5H6V3z" fill="currentColor" />
+          </svg>
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -28,6 +28,13 @@ export const ui = {
     'notfound.title': 'Sayfa bulunamadı',
     'notfound.text': 'Aradığınız sayfa yok ya da taşınmış olabilir.',
     'notfound.home': 'Ana sayfaya dön',
+    'home.links': 'Profiller',
+    'home.more': 'Hakkımda daha fazlası',
+    'about.title': 'Hakkımda',
+    'about.education': 'Eğitim',
+    'about.interests': 'Araştırma alanları',
+    'about.service': 'Akademik hizmet',
+    'about.links': 'Bağlantılar',
   },
   en: {
     'site.title': 'İsa Kulaksız',
@@ -44,6 +51,13 @@ export const ui = {
     'notfound.title': 'Page not found',
     'notfound.text': 'The page you are looking for does not exist or has moved.',
     'notfound.home': 'Back to home',
+    'home.links': 'Profiles',
+    'home.more': 'More about me',
+    'about.title': 'About',
+    'about.education': 'Education',
+    'about.interests': 'Research interests',
+    'about.service': 'Academic service',
+    'about.links': 'Links',
   },
 } as const;
 
