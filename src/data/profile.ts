@@ -50,7 +50,7 @@ export const profile = {
       field: { tr: 'Bilgisayar Mühendisliği', en: 'Computer Engineering' } satisfies Localized,
       school: { tr: 'Atatürk Üniversitesi', en: 'Atatürk University' } satisfies Localized,
       url: 'https://atauni.edu.tr',
-      years: '2025',
+      years: '2022–2025',
       advisor: { tr: 'Dr. Öğr. Üyesi Ahmet Coşkunçay', en: 'Asst. Prof. Ahmet Coşkunçay' } satisfies Localized,
       /** Araştırma sayfasındaki tez kaydının id'si (publications.ts) */
       thesisId: 'kulaksiz2025thesis',
@@ -60,7 +60,7 @@ export const profile = {
       field: { tr: 'Bilgisayar Mühendisliği', en: 'Computer Engineering' } satisfies Localized,
       school: { tr: 'Karabük Üniversitesi', en: 'Karabük University' } satisfies Localized,
       url: 'https://www.karabuk.edu.tr',
-      years: '',
+      years: '2019–2024',
       advisor: undefined,
       thesisId: undefined,
     },
