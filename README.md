@@ -51,7 +51,7 @@ Blog sayfası ve ana sayfadaki "Son yazılar" bölümü, Medium beslemesinden (`
 
 - Her build'de besleme çekilir; erişilemezse depodaki anlık kopya `src/data/medium.json` kullanılır.
 - Anlık kopyayı yenilemek için: `npm run sync:medium` (sonucu commit edin).
-- Bir yazıyı sitede göstermemek için adresinin bir parçasını `src/data/medium-hidden.ts` listesine ekleyin.
+- Öne çıkan yazılar ve gizlenecek yazılar `src/data/medium-config.ts` içinde tanımlanır: `featuredMediumPosts` ana sayfada tek başına ve blog listesinin en üstünde gösterilir; `hiddenMediumPosts` hiçbir yerde görünmez.
 - Deploy akışı her pazartesi otomatik olarak yeniden derlenir; yeni Medium yazıları en geç bir hafta içinde siteye düşer. Hemen yansıtmak için GitHub'da **Actions → Deploy to GitHub Pages → Run workflow** butonunu kullanın.
 
 ## Yayınlama

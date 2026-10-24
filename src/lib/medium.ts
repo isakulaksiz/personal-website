@@ -1,6 +1,6 @@
 import snapshot from '../data/medium.json';
 import { fetchMediumPosts } from './medium-feed.mjs';
-import { hiddenMediumPosts } from '../data/medium-hidden';
+import { featuredMediumPosts, hiddenMediumPosts } from '../data/medium-config';
 
 export interface MediumPost {
   title: string;
@@ -26,7 +26,20 @@ export function getMediumPosts(): Promise<MediumPost[]> {
       console.warn(`[medium] Besleme alınamadı, src/data/medium.json kullanılıyor: ${(error as Error).message}`);
       posts = snapshot.posts as MediumPost[];
     }
-    return posts.filter((post) => !hiddenMediumPosts.some((fragment) => post.url.includes(fragment)));
+    const visible = posts.filter((post) => !hiddenMediumPosts.some((fragment) => post.url.includes(fragment)));
+    // Öne çıkanlar verilen sırayla en üste, kalanlar tarih sırasıyla altına
+    const featured = featuredMediumPosts
+      .map((fragment) => visible.find((post) => post.url.includes(fragment)))
+      .filter((post): post is MediumPost => post !== undefined);
+    const rest = visible.filter((post) => !featured.includes(post));
+    return [...featured, ...rest];
   })();
   return cached;
+}
+
+/** Ana sayfa için: öne çıkan yazılar; hiç tanımlı değilse en yeni 3 yazı. */
+export async function getFeaturedMediumPosts(): Promise<MediumPost[]> {
+  const posts = await getMediumPosts();
+  const featured = posts.filter((post) => featuredMediumPosts.some((fragment) => post.url.includes(fragment)));
+  return featured.length > 0 ? featured : posts.slice(0, 3);
 }
