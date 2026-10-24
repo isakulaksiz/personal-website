@@ -16,7 +16,7 @@ export const ui = {
   tr: {
     'site.title': 'İsa Kulaksız',
     'site.description':
-      'Makine öğrenmesi mühendisi. Doğal dil işleme, metin sınıflandırma ve sahte haber tespiti üzerine çalışıyorum.',
+      'Yapay zeka mühendisi. Doğal dil işleme, metin sınıflandırma ve sahte haber tespiti üzerine çalışıyorum.',
     'nav.home': 'Ana Sayfa',
     'nav.about': 'Hakkımda',
     'nav.research': 'Araştırma',
@@ -56,7 +56,7 @@ export const ui = {
   en: {
     'site.title': 'İsa Kulaksız',
     'site.description':
-      'Machine learning engineer working on natural language processing, text classification and fake news detection.',
+      'AI engineer working on natural language processing, text classification and fake news detection.',
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.research': 'Research',
