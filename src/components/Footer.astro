@@ -1,0 +1,20 @@
+---
+import type { Lang } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <span>© {year} {t('site.title')}. {t('footer.rights')}</span>
+    <span>
+      <a href={localePath(lang, 'rss.xml').replace(/\/$/, '')}>{t('footer.rss')}</a>
+    </span>
+  </div>
+</footer>

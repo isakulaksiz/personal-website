@@ -1,0 +1,71 @@
+---
+import '../styles/global.css';
+import { languages, localeTags, type Lang } from '../i18n/ui';
+import { assetPath, localePath, useTranslations } from '../i18n/utils';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description?: string;
+  /** Dil öneki olmadan sayfa yolu: '' (ana sayfa), 'about', 'blog/yazi-adi' */
+  path?: string;
+  /** Diğer dillerdeki karşılık; null ise o dilde çeviri yok (ana sayfaya düşer). */
+  alternates?: Partial<Record<Lang, string | null>>;
+  type?: 'website' | 'article';
+}
+
+const { lang, title, description, path = '', alternates = {}, type = 'website' } = Astro.props;
+const t = useTranslations(lang);
+
+const siteName = t('site.title');
+const fullTitle = path === '' ? siteName : `${title} · ${siteName}`;
+const metaDescription = description ?? t('site.description');
+
+const resolvedAlternates = Object.fromEntries(
+  (Object.keys(languages) as Lang[]).map((code) => {
+    const override = alternates[code];
+    const href = override === undefined ? localePath(code, path) : override ?? localePath(code);
+    return [code, href];
+  }),
+) as Record<Lang, string>;
+
+const hreflangs = (Object.keys(languages) as Lang[])
+  .filter((code) => alternates[code] !== null)
+  .map((code) => ({ code, href: new URL(resolvedAlternates[code], Astro.site).toString() }));
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <meta name="author" content={siteName} />
+    <link rel="canonical" href={canonical} />
+    {hreflangs.map(({ code, href }) => <link rel="alternate" hreflang={code} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={new URL(localePath('tr', path), Astro.site).toString()} />
+    <link rel="icon" href={assetPath('favicon.svg')} type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={localePath(lang, 'rss.xml').replace(/\/$/, '')} />
+    <link rel="sitemap" href={assetPath('sitemap-index.xml')} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={localeTags[lang].replace('-', '_')} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#ffffff" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t('a11y.skip')}</a>
+    <Header lang={lang} alternates={resolvedAlternates} />
+    <main id="main" class="container">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
