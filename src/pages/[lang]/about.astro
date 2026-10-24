@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SocialLinks from '../../components/SocialLinks.astro';
+import type { Lang } from '../../i18n/ui';
+import { langPaths, useTranslations } from '../../i18n/utils';
+import { profile } from '../../data/profile';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+<BaseLayout lang={lang} path="about" title={t('about.title')} description={profile.bio[lang]}>
+  <h1>{t('about.title')}</h1>
+  <div class="prose">
+    {profile.about[lang].map((paragraph) => <p>{paragraph}</p>)}
+  </div>
+
+  <section class="section">
+    <h2>{t('about.education')}</h2>
+    <ul class="item-list">
+      {
+        profile.education.map((item) => (
+          <li>
+            <span class="item-title">{item.degree[lang]}, {item.field[lang]}</span>
+            <p class="meta">
+              <a href={item.url}>{item.school[lang]}</a>
+              {item.years ? ` · ${item.years}` : ''}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>{t('about.interests')}</h2>
+    <div class="tags">
+      {profile.interests[lang].map((item) => <span class="tag">{item}</span>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>{t('about.service')}</h2>
+    <ul>
+      {profile.service[lang].map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>{t('about.links')}</h2>
+    <SocialLinks lang={lang} />
+    <p class="small muted">
+      ORCID: <a href={`https://orcid.org/${profile.orcid}`}>{profile.orcid}</a>
+    </p>
+  </section>
+</BaseLayout>
