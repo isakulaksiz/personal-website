@@ -13,7 +13,7 @@ npm run build    # üretim çıktısı dist/ klasörüne
 npm run preview  # build çıktısını yerelde dene
 ```
 
-Node.js 22.12 veya üzeri gerekir.
+Node.js 22.23.4 veya üzeri gerekir (GitHub Actions üzerinde Node 24 kullanılır).
 
 ## İçerik güncelleme
 
