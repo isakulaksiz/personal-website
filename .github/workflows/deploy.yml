@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Pazartesi 06:00 UTC: Medium'daki yeni yazıların siteye düşmesi için haftalık yeniden derleme
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 permissions:

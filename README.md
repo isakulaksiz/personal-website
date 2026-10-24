@@ -45,6 +45,14 @@ Yazının içeriği…
 - `draft: true` olan yazılar yalnızca `npm run dev` ile görünür, yayına çıkmaz.
 - Yazı adresi dosya adından üretilir: `tr/welcome.md` → `/tr/blog/welcome/`.
 
+## Medium yazıları
+
+Blog sayfası ve ana sayfadaki "Son yazılar" bölümü, Medium beslemesinden (`https://medium.com/feed/@isakulaksiz.ce`) gelir:
+
+- Her build'de besleme çekilir; erişilemezse depodaki anlık kopya `src/data/medium.json` kullanılır.
+- Anlık kopyayı yenilemek için: `npm run sync:medium` (sonucu commit edin).
+- Deploy akışı her pazartesi otomatik olarak yeniden derlenir; yeni Medium yazıları en geç bir hafta içinde siteye düşer. Hemen yansıtmak için GitHub'da **Actions → Deploy to GitHub Pages → Run workflow** butonunu kullanın.
+
 ## Yayınlama
 
 `main` dalına yapılan her push'ta `.github/workflows/deploy.yml` çalışır, siteyi derler ve GitHub Pages'e yükler. Depo ayarlarında **Settings → Pages → Source** değeri **GitHub Actions** olmalıdır.
