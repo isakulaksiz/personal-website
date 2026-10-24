@@ -1,0 +1,62 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { languages, type Lang } from '../../../i18n/ui';
+import { formatDate, localePath, useTranslations } from '../../../i18n/utils';
+import { getAllPosts, postLang, postSlug, type Post } from '../../../lib/blog';
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({
+    params: { lang: postLang(post), slug: postSlug(post) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: Post };
+const lang = postLang(post);
+const slug = postSlug(post);
+const t = useTranslations(lang);
+
+// Aynı slug'a sahip diğer dildeki yazı varsa dil değiştirici ona gider, yoksa blog listesine.
+const all = await getAllPosts();
+const alternates = Object.fromEntries(
+  (Object.keys(languages) as Lang[])
+    .filter((code) => code !== lang)
+    .map((code) => {
+      const translated = all.some((p) => postLang(p) === code && postSlug(p) === slug);
+      return [code, translated ? localePath(code, `blog/${slug}`) : null];
+    }),
+) as Partial<Record<Lang, string | null>>;
+
+const { Content } = await render(post);
+---
+<BaseLayout
+  lang={lang}
+  path={`blog/${slug}`}
+  title={post.data.title}
+  description={post.data.description}
+  alternates={alternates}
+  fallbackPath="blog"
+  type="article"
+>
+  <article class="prose">
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
+        {post.data.updatedDate && (
+          <span> · {t('blog.updated')}: <time datetime={post.data.updatedDate.toISOString()}>{formatDate(post.data.updatedDate, lang)}</time></span>
+        )}
+      </p>
+      {post.data.tags.length > 0 && (
+        <div class="tags">
+          {post.data.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+      )}
+    </header>
+    <Content />
+  </article>
+  <hr />
+  <p><a href={localePath(lang, 'blog')}>{t('blog.back')}</a></p>
+</BaseLayout>

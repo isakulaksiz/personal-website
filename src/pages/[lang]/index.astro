@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SocialLinks from '../../components/SocialLinks.astro';
 import type { Lang } from '../../i18n/ui';
-import { langPaths, localePath, useTranslations } from '../../i18n/utils';
+import { formatDate, langPaths, localePath, useTranslations } from '../../i18n/utils';
+import { getPosts, postSlug } from '../../lib/blog';
 import { profile } from '../../data/profile';
 import { publications, formatVenue } from '../../data/publications';
 
@@ -13,6 +14,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
 const selected = publications.filter((p) => p.selected).sort((a, b) => b.year - a.year);
+const latestPosts = (await getPosts(lang)).slice(0, 3);
 ---
 <BaseLayout lang={lang} path="" title={t('site.title')} description={profile.bio[lang]}>
   <section class="section">
@@ -23,6 +25,25 @@ const selected = publications.filter((p) => p.selected).sort((a, b) => b.year - 
     <p>{profile.bio[lang]}</p>
     <p><a href={localePath(lang, 'about')}>{t('home.more')}</a></p>
   </section>
+
+  {
+    latestPosts.length > 0 && (
+      <section class="section">
+        <h2>{t('home.posts')}</h2>
+        <ul class="item-list">
+          {latestPosts.map((post) => (
+            <li>
+              <a class="item-title" href={localePath(lang, `blog/${postSlug(post)}`)}>{post.data.title}</a>
+              <p class="meta">
+                <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate, lang)}</time>
+              </p>
+            </li>
+          ))}
+        </ul>
+        <p><a href={localePath(lang, 'blog')}>{t('home.allPosts')}</a></p>
+      </section>
+    )
+  }
 
   {
     selected.length > 0 && (
