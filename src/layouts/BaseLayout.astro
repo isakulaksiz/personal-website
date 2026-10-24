@@ -11,12 +11,14 @@ interface Props {
   description?: string;
   /** Dil öneki olmadan sayfa yolu: '' (ana sayfa), 'about', 'blog/yazi-adi' */
   path?: string;
-  /** Diğer dillerdeki karşılık; null ise o dilde çeviri yok (ana sayfaya düşer). */
+  /** Diğer dillerdeki karşılık; null ise o dilde çeviri yok (fallbackPath'e düşer). */
   alternates?: Partial<Record<Lang, string | null>>;
+  /** Çevirisi olmayan sayfalarda dil değiştiricinin gideceği yol (varsayılan: ana sayfa) */
+  fallbackPath?: string;
   type?: 'website' | 'article';
 }
 
-const { lang, title, description, path = '', alternates = {}, type = 'website' } = Astro.props;
+const { lang, title, description, path = '', alternates = {}, fallbackPath = '', type = 'website' } = Astro.props;
 const t = useTranslations(lang);
 
 const siteName = t('site.title');
@@ -26,7 +28,7 @@ const metaDescription = description ?? t('site.description');
 const resolvedAlternates = Object.fromEntries(
   (Object.keys(languages) as Lang[]).map((code) => {
     const override = alternates[code];
-    const href = override === undefined ? localePath(code, path) : override ?? localePath(code);
+    const href = override === undefined ? localePath(code, path) : override ?? localePath(code, fallbackPath);
     return [code, href];
   }),
 ) as Record<Lang, string>;

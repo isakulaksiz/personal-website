@@ -45,6 +45,13 @@ export const ui = {
     'research.type.conference': 'Bildiri',
     'research.type.thesis': 'Tez',
     'research.type.preprint': 'Ön baskı',
+    'home.posts': 'Son yazılar',
+    'home.allPosts': 'Tüm yazılar',
+    'blog.title': 'Blog',
+    'blog.intro': 'Makine öğrenmesi, doğal dil işleme ve yazılım üzerine notlar.',
+    'blog.empty': 'Henüz yazı yok.',
+    'blog.updated': 'Güncellendi',
+    'blog.back': 'Tüm yazılar',
   },
   en: {
     'site.title': 'İsa Kulaksız',
@@ -78,6 +85,13 @@ export const ui = {
     'research.type.conference': 'Conference paper',
     'research.type.thesis': 'Thesis',
     'research.type.preprint': 'Preprint',
+    'home.posts': 'Latest posts',
+    'home.allPosts': 'All posts',
+    'blog.title': 'Blog',
+    'blog.intro': 'Notes on machine learning, natural language processing and software.',
+    'blog.empty': 'No posts yet.',
+    'blog.updated': 'Updated',
+    'blog.back': 'All posts',
   },
 } as const;
 
