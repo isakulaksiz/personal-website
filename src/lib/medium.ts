@@ -1,5 +1,6 @@
 import snapshot from '../data/medium.json';
 import { fetchMediumPosts } from './medium-feed.mjs';
+import { hiddenMediumPosts } from '../data/medium-hidden';
 
 export interface MediumPost {
   title: string;
@@ -18,12 +19,14 @@ let cached: Promise<MediumPost[]> | undefined;
  */
 export function getMediumPosts(): Promise<MediumPost[]> {
   cached ??= (async () => {
+    let posts: MediumPost[];
     try {
-      return (await fetchMediumPosts()) as MediumPost[];
+      posts = (await fetchMediumPosts()) as MediumPost[];
     } catch (error) {
       console.warn(`[medium] Besleme alınamadı, src/data/medium.json kullanılıyor: ${(error as Error).message}`);
-      return snapshot.posts as MediumPost[];
+      posts = snapshot.posts as MediumPost[];
     }
+    return posts.filter((post) => !hiddenMediumPosts.some((fragment) => post.url.includes(fragment)));
   })();
   return cached;
 }
