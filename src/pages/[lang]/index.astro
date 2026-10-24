@@ -4,6 +4,7 @@ import SocialLinks from '../../components/SocialLinks.astro';
 import type { Lang } from '../../i18n/ui';
 import { langPaths, localePath, useTranslations } from '../../i18n/utils';
 import { profile } from '../../data/profile';
+import { publications, formatVenue } from '../../data/publications';
 
 export function getStaticPaths() {
   return langPaths();
@@ -11,6 +12,7 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const t = useTranslations(lang);
+const selected = publications.filter((p) => p.selected).sort((a, b) => b.year - a.year);
 ---
 <BaseLayout lang={lang} path="" title={t('site.title')} description={profile.bio[lang]}>
   <section class="section">
@@ -21,6 +23,23 @@ const t = useTranslations(lang);
     <p>{profile.bio[lang]}</p>
     <p><a href={localePath(lang, 'about')}>{t('home.more')}</a></p>
   </section>
+
+  {
+    selected.length > 0 && (
+      <section class="section">
+        <h2>{t('home.publications')}</h2>
+        <ul class="item-list">
+          {selected.map((p) => (
+            <li>
+              <a class="item-title" href={`${localePath(lang, 'research')}#${p.id}`}>{p.title}</a>
+              <p class="meta">{formatVenue(p)}, {p.year}</p>
+            </li>
+          ))}
+        </ul>
+        <p><a href={localePath(lang, 'research')}>{t('home.allPublications')}</a></p>
+      </section>
+    )
+  }
 
   <section class="section">
     <h2>{t('home.links')}</h2>

@@ -187,6 +187,12 @@ th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(
 .links a:hover { border-color: var(--accent); color: var(--accent); }
 .links svg { width: 1em; height: 1em; flex: none; }
 
+/* Açılır özet / BibTeX */
+details { margin-top: 0.5rem; }
+summary { cursor: pointer; color: var(--accent); font-size: 0.9rem; }
+details[open] summary { margin-bottom: 0.4rem; }
+details pre { margin: 0; }
+
 /* Yazı gövdesi */
 .prose h2 { margin-top: 2.25rem; }
 .prose a { overflow-wrap: anywhere; }
