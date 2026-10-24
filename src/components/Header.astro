@@ -1,0 +1,39 @@
+---
+import type { Lang } from '../i18n/ui';
+import { localePath, useTranslations } from '../i18n/utils';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+interface Props {
+  lang: Lang;
+  alternates: Record<Lang, string>;
+}
+
+const { lang, alternates } = Astro.props;
+const t = useTranslations(lang);
+
+const items = [
+  { href: localePath(lang), label: t('nav.home'), exact: true },
+  { href: localePath(lang, 'about'), label: t('nav.about'), exact: false },
+  { href: localePath(lang, 'research'), label: t('nav.research'), exact: false },
+  { href: localePath(lang, 'blog'), label: t('nav.blog'), exact: false },
+];
+
+const current = Astro.url.pathname.replace(/\/+$/, '') + '/';
+const isCurrent = (href: string, exact: boolean) =>
+  exact ? current === href : current.startsWith(href);
+---
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href={localePath(lang)}>{t('site.title')}</a>
+    <nav class="site-nav" aria-label="Main">
+      {
+        items.map((item) => (
+          <a href={item.href} aria-current={isCurrent(item.href, item.exact) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+    <LanguageSwitcher lang={lang} alternates={alternates} />
+  </div>
+</header>

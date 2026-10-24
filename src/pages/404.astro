@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localePath, useTranslations } from '../i18n/utils';
+
+const tr = useTranslations('tr');
+const en = useTranslations('en');
+---
+<BaseLayout lang="tr" path="404" title={tr('notfound.title')} alternates={{ tr: null, en: null }}>
+  <section class="section">
+    <h1>{tr('notfound.title')}</h1>
+    <p>{tr('notfound.text')} <a href={localePath('tr')}>{tr('notfound.home')}</a></p>
+  </section>
+  <section class="section" lang="en">
+    <h2>{en('notfound.title')}</h2>
+    <p>{en('notfound.text')} <a href={localePath('en')}>{en('notfound.home')}</a></p>
+  </section>
+</BaseLayout>
