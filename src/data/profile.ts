@@ -50,7 +50,10 @@ export const profile = {
       field: { tr: 'Bilgisayar Mühendisliği', en: 'Computer Engineering' } satisfies Localized,
       school: { tr: 'Atatürk Üniversitesi', en: 'Atatürk University' } satisfies Localized,
       url: 'https://atauni.edu.tr',
-      years: '',
+      years: '2025',
+      advisor: { tr: 'Dr. Öğr. Üyesi Ahmet Coşkunçay', en: 'Asst. Prof. Ahmet Coşkunçay' } satisfies Localized,
+      /** Araştırma sayfasındaki tez kaydının id'si (publications.ts) */
+      thesisId: 'kulaksiz2025thesis',
     },
     {
       degree: { tr: 'Lisans', en: 'B.Sc.' } satisfies Localized,
@@ -58,6 +61,8 @@ export const profile = {
       school: { tr: 'Karabük Üniversitesi', en: 'Karabük University' } satisfies Localized,
       url: 'https://www.karabuk.edu.tr',
       years: '',
+      advisor: undefined,
+      thesisId: undefined,
     },
   ],
 
@@ -94,6 +99,7 @@ export const profile = {
     { key: 'researchgate', label: 'ResearchGate', url: 'https://www.researchgate.net/profile/Isa-Kulaksiz' },
     { key: 'dergipark', label: 'DergiPark', url: 'https://dergipark.org.tr/en/pub/@isa-kulaksiz' },
     { key: 'github', label: 'GitHub', url: 'https://github.com/isakulaksiz' },
+    { key: 'huggingface', label: 'Hugging Face', url: 'https://huggingface.co/isakulaksiz' },
     { key: 'medium', label: 'Medium', url: 'https://medium.com/@isakulaksiz.ce' },
   ] as { key: string; label: string | Localized; url: string }[],
 

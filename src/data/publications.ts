@@ -23,6 +23,12 @@ export interface Publication {
   doi?: string;
   url?: string;
   pdf?: string;
+  /** Tezler için şehir / ülke (BibTeX address) */
+  address?: string;
+  /** Tezler için BibTeX type alanı, ör. "Yüksek Lisans Tezi" */
+  bibType?: string;
+  /** Sayfada gösterilecek ek bilgi: danışman, dil vb. */
+  note?: Localized;
   keywords: Record<Lang, string[]>;
   summary: Localized;
   /** Ana sayfada gösterilsin mi */
@@ -64,6 +70,29 @@ export const publications: Publication[] = [
     },
     selected: true,
   },
+  {
+    id: 'kulaksiz2025thesis',
+    type: 'thesis',
+    title: 'Doğal Dil İşleme Kullanılarak Ana Akım Medyada Türkçe Sahte Haber Tespiti',
+    authors: [{ given: 'İsa', family: 'Kulaksız' }],
+    venue: 'Atatürk Üniversitesi, Fen Bilimleri Enstitüsü, Bilgisayar Mühendisliği Anabilim Dalı',
+    year: 2025,
+    address: 'Erzurum, Türkiye',
+    bibType: 'Yüksek Lisans Tezi',
+    url: 'https://tez.yok.gov.tr/UlusalTezMerkezi/',
+    note: {
+      tr: 'Yüksek lisans tezi · Danışman: Dr. Öğr. Üyesi Ahmet Coşkunçay · Dil: Türkçe · YÖK Ulusal Tez Merkezi',
+      en: 'M.Sc. thesis · Advisor: Asst. Prof. Ahmet Coşkunçay · Language: Turkish · YÖK National Thesis Center',
+    },
+    keywords: {
+      tr: ['Sahte haber tespiti', 'Doğal dil işleme', 'Makine öğrenmesi', 'LSTM', 'BERTurk'],
+      en: ['Fake news detection', 'NLP', 'Machine learning', 'LSTM', 'BERTurk'],
+    },
+    summary: {
+      tr: 'Tezde Türkçe ana akım medyadaki haberlerin sahte mi gerçek mi olduğunu tespit eden bir sistem geliştirilmiştir. TRT Gündem ve Teyit.org kaynaklarından toplanan haberler ön işleme adımlarından geçirilerek etiketlenmiş; TF-IDF, CountVectorizer ve Word2Vec ile özellik çıkarımı yapılmış; SVM, lojistik regresyon, Naive Bayes, k-NN, karar ağacı, rastgele orman, LSTM ve BERTurk modelleri karşılaştırılmıştır. Tezin veri seti Hugging Face üzerinde TR-FakeNews adıyla paylaşılmıştır.',
+      en: 'The thesis develops a system that classifies news from Turkish mainstream media as fake or real. News collected from TRT Gündem and Teyit.org is preprocessed and labelled; features are extracted with TF-IDF, CountVectorizer and Word2Vec; SVM, logistic regression, Naive Bayes, k-NN, decision tree, random forest, LSTM and BERTurk models are compared. The dataset is shared on Hugging Face as TR-FakeNews.',
+    },
+  },
 ];
 
 export function formatAuthors(authors: Author[]): string {
@@ -89,6 +118,8 @@ export function toBibtex(p: Publication): string {
   if (p.volume) fields.push(`  volume = {${p.volume}}`);
   if (p.issue) fields.push(`  number = {${p.issue}}`);
   if (p.pages) fields.push(`  pages = {${p.pages.replace(/[–—]/g, '--')}}`);
+  if (p.address) fields.push(`  address = {${p.address}}`);
+  if (p.bibType) fields.push(`  type = {${p.bibType}}`);
   if (p.doi) fields.push(`  doi = {${p.doi}}`);
   if (p.url && !p.doi) fields.push(`  url = {${p.url}}`);
   return `@${entryType}{${p.id},\n${fields.join(',\n')}\n}`;
