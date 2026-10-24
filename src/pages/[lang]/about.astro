@@ -43,6 +43,20 @@ const t = useTranslations(lang);
   </section>
 
   <section class="section">
+    <h2>{t('about.skills')}</h2>
+    {
+      profile.skills.map((group) => (
+        <div class="skill-group">
+          <h3>{group.name[lang]}</h3>
+          <div class="tags">
+            {group.items.map((item) => <span class="tag">{item}</span>)}
+          </div>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="section">
     <h2>{t('about.service')}</h2>
     <ul>
       {profile.service[lang].map((item) => <li>{item}</li>)}
