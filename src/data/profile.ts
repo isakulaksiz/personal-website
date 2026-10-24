@@ -60,7 +60,7 @@ export const profile = {
       field: { tr: 'Bilgisayar Mühendisliği', en: 'Computer Engineering' } satisfies Localized,
       school: { tr: 'Karabük Üniversitesi', en: 'Karabük University' } satisfies Localized,
       url: 'https://www.karabuk.edu.tr',
-      years: '2019–2024',
+      years: '2014–2019',
       advisor: undefined,
       thesisId: undefined,
     },
