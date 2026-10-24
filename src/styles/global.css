@@ -171,6 +171,10 @@ th, td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(
   padding: 0.05rem 0.55rem;
 }
 
+/* Teknoloji grupları */
+.skill-group h3 { font-size: 0.95rem; font-weight: 600; margin: 1rem 0 0.35rem; color: var(--text-muted); }
+.skill-group:first-of-type h3 { margin-top: 0.25rem; }
+
 /* Profil bağlantıları */
 .links { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; padding: 0; margin: 1rem 0; }
 .links a {

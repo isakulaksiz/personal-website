@@ -16,7 +16,7 @@ export const ui = {
   tr: {
     'site.title': 'İsa Kulaksız',
     'site.description':
-      'Yapay zeka mühendisi. Doğal dil işleme, metin sınıflandırma ve sahte haber tespiti üzerine çalışıyorum.',
+      'Yapay zeka mühendisi. Büyük dil modelleri, ajan tabanlı sistemler, RAG ve doğal dil işleme üzerine çalışıyorum.',
     'nav.home': 'Ana Sayfa',
     'nav.about': 'Hakkımda',
     'nav.research': 'Araştırma',
@@ -35,6 +35,7 @@ export const ui = {
     'about.interests': 'Araştırma alanları',
     'about.service': 'Akademik hizmet',
     'about.links': 'Bağlantılar',
+    'about.skills': 'Teknolojiler',
     'home.publications': 'Seçilmiş yayınlar',
     'home.allPublications': 'Tüm yayınlar',
     'research.title': 'Araştırma',
@@ -56,7 +57,7 @@ export const ui = {
   en: {
     'site.title': 'İsa Kulaksız',
     'site.description':
-      'AI engineer working on natural language processing, text classification and fake news detection.',
+      'AI engineer working on large language models, agentic systems, RAG and natural language processing.',
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.research': 'Research',
@@ -75,6 +76,7 @@ export const ui = {
     'about.interests': 'Research interests',
     'about.service': 'Academic service',
     'about.links': 'Links',
+    'about.skills': 'Technologies',
     'home.publications': 'Selected publications',
     'home.allPublications': 'All publications',
     'research.title': 'Research',
